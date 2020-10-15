@@ -36,9 +36,10 @@ def client_connect():
         )
     client = Client.access_token(settings.ASANA_ACCESS_TOKEN)
     if getattr(settings, 'ASANA_WORKSPACE', None):
-        workspaces = client.workspaces.find_all()
-        for workspace in workspaces:
-            if settings.ASANA_WORKSPACE == workspace['name']:
-                client.options['workspace_id'] = workspace['gid']
+        client.options['workspace_id'] = settings.ASANA_WORKSPACE
+        # workspaces = client.workspaces.find_all()
+        # for workspace in workspaces:
+        #     if settings.ASANA_WORKSPACE == workspace['name']:
+        #         client.options['workspace_id'] = workspace['gid']
     client.options['Asana-Fast-Api'] = 'true'
     return client
