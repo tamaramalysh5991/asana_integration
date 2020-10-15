@@ -1,0 +1,20 @@
+version: '3.7'
+
+volumes:
+  postgres_data:
+
+services:
+  db:
+    image: postgres:12.4
+    env_file:
+      - ./.env
+  web:
+    build: .
+    restart: always
+    command: gunicorn asana_integration.wsgi:application --bind 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    env_file:
+      - ./.env
