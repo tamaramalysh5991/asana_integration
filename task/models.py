@@ -1,9 +1,13 @@
 from django.db import models
+
+from core.models import AsanaModel
+from servises.asana_connect import client_connect
 from user.models import User
 from project.models import Project
+asana_client = client_connect()
 
 
-class Task(models.Model):
+class Task(AsanaModel):
     """Model to represent Asana Task
 
     Attributes:
