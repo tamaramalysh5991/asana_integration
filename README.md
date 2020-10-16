@@ -1,5 +1,11 @@
 ### Asana API integration
 
+## Asana credentials
+
+Need to set to `.env` file `ASANA_ACCESS_TOKEN`
+It's need to access to Asana API
+Also, you can set `ASANA_WORKSPACE`
+
 ### Usage via virtual environment
 Python version - 3.8.5
 
@@ -30,6 +36,10 @@ python3 manage.py runserver
 ## Usage via docker:
 You should have Docker and docker compose
 
+To run migrations (It's need only once):
+```
+docker-compose run web python3 manage.py migrate 
+```
 To run a application:
 ```bash
 docker-compose up
