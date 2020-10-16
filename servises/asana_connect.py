@@ -6,8 +6,25 @@ from asana.error import ServerError
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 
-
 logger = logging.getLogger(__name__)
+
+
+def get_workspace(client):
+    """Try to get workspace from client or settings
+    Every project is required to be created in a specific workspace or
+    organization, and this cannot be changed once set.
+    https://developers.asana.com/docs/create-a-project
+    """
+    workspace = getattr(settings, 'ASANA_WORKSPACE', None)
+    if not workspace:
+        workspaces = [
+            workspace for workspace in client.workspaces.find_all(item_limit=1)
+        ]
+        if not workspaces:
+            logger.error('Any workspaces was not found')
+            return
+        workspace = workspaces[0]['gid']
+    return workspace
 
 
 class Client(AsanaClient, object):
@@ -35,11 +52,4 @@ def client_connect():
             'and ASANA_OAUTH_REDIRECT_URI.'
         )
     client = Client.access_token(settings.ASANA_ACCESS_TOKEN)
-    if getattr(settings, 'ASANA_WORKSPACE', None):
-        client.options['workspace_id'] = settings.ASANA_WORKSPACE
-        # workspaces = client.workspaces.find_all()
-        # for workspace in workspaces:
-        #     if settings.ASANA_WORKSPACE == workspace['name']:
-        #         client.options['workspace_id'] = workspace['gid']
-    client.options['Asana-Fast-Api'] = 'true'
     return client
