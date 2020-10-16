@@ -1,17 +1,15 @@
 from django.db import models
 
 from core.models import AsanaModel
-from servises.asana_connect import client_connect
 from user.models import User
 from project.models import Project
-asana_client = client_connect()
 
 
 class Task(AsanaModel):
     """Model to represent Asana Task
 
     Attributes:
-        projects: in Asana the task can be related to many porjects
+        projects: in Asana the task can be related to many projects
         description: task text
         assignee: user who assigned to this task
     """
@@ -26,3 +24,10 @@ class Task(AsanaModel):
         null=True,
         on_delete=models.SET_NULL
     )
+
+    def __str__(self):
+        projects = ', '.join(project.name for project in self.projects.all())
+        return (
+            f'Task {self.description} assignee '
+            f'{self.assignee} projects {projects}'
+        )
