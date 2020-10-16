@@ -10,20 +10,11 @@ services:
       - ./.env
   web:
     build: .
-    image: asana_task_manager
-    restart: always
-    command: gunicorn asana_integration.wsgi:application --bind 0.0.0.0:8000
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
     ports:
       - "8000:8000"
-    depends_on:
-      - db
-      - web_migrations
-    env_file:
-      - ./.env
-  web_migrations:
-    build: .
-    image: asana_task_manager
-    command: python3 manage.py migrate
     depends_on:
       - db
     env_file:
