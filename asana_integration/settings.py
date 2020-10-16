@@ -88,21 +88,14 @@ WSGI_APPLICATION = 'asana_integration.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': os.environ.get('DB_ENGINE'),
+        'NAME': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('POSTGRES_USER'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
+        'HOST': os.environ.get('DB_HOST'),
+        'PORT': os.environ.get('DB_PORT'),
     }
 }
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': os.environ.get('DB_ENGINE'),
-#         'NAME': os.environ.get('DB_NAME'),
-#         'USER': os.environ.get('POSTGRES_USER'),
-#         'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
-#         'HOST': os.environ.get('DB_HOST'),
-#         'PORT': os.environ.get('DB_PORT'),
-#     }
-# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -143,7 +136,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 ASANA_ACCESS_TOKEN = os.environ.get('ASANA_ACCESS_TOKEN')
-# ASANA_ACCESS_TOKEN = '1/1198213137748614:69bc9e920260f9a967f0d80f90e8e955'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
@@ -152,4 +144,3 @@ REST_FRAMEWORK = {
 }
 
 ASANA_WORKSPACE = os.environ.get('ASANA_WORKSPACE')
-# ASANA_WORKSPACE = '1198213219420601'
