@@ -8,8 +8,8 @@ asana_client = client_connect()
 
 class UserSerializer(serializers.ModelSerializer):
     """Serializer for Asana User"""
-    gid = serializers.CharField(read_only=True)
+    workspace = serializers.CharField(allow_blank=True)
 
     class Meta:
-        fields = ('id', 'name', 'gid')
+        fields = ('id', 'name', 'workspace')
         model = User

@@ -15,3 +15,7 @@ class User(AsanaModel):
     relationship yourself).
     """
     name = models.CharField('name', max_length=1024)
+    workspace = models.CharField(max_length=24, blank=True,)
+
+    def __str__(self):
+        return f'{self.name}'
