@@ -2,9 +2,12 @@
 
 ## Asana credentials
 
-Need to set to `.env` file `ASANA_ACCESS_TOKEN`
-It's need to access to Asana API
-Also, you can set `ASANA_WORKSPACE`
+Need to set to `.env` file `ASANA_ACCESS_TOKEN`.
+It's need to access to Asana API.
+
+Also, you can set `ASANA_WORKSPACE`.
+
+[Asana API documentation](https://developers.asana.com/docs)
 
 ### Usage via virtual environment
 Python version - 3.8.5
