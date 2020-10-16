@@ -17,6 +17,7 @@ def mock_create_asana_user(mocker):
 @pytest.mark.django_db
 def test_user_create(mock_create_asana_user):
     """Check that after user creation the Asana API user creation was called"""
-    User.objects.create(name='john@jon.com')
+    user_email = 'john@jon.com'
+    User.objects.create(name=user_email)
     assert mock_create_asana_user.called
-    assert User.objects.filter(name='john@jon.com').first()
+    assert User.objects.filter(name=user_email).first()
